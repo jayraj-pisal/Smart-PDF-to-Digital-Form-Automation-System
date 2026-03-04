@@ -1,0 +1,28 @@
+.container {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.form-card {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-card button {
+  background-color: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-card button:hover {
+  background-color: #5a67d8;
+}

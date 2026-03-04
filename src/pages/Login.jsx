@@ -1,0 +1,90 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import "../styles/Login.css";
+
+function Login() {
+  const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        { email, password }
+      );
+
+      console.log("LOGIN RESPONSE:", res.data);
+
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+
+    } catch (err) {
+      alert("Login failed");
+    }
+  };
+
+  return (
+    <div className="auth-container">
+  <div className="auth-card">
+      <h2>Student Login</h2>
+
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Email</label><br/>
+          <input
+            type="email"
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+        </div>
+
+        <div >
+      <label>Password</label><br/>
+
+      <div className="password-wrapper">
+        <input
+          type={show ? "text" : "password"}
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
+          required
+          autoComplete="current-password"
+        />
+
+        <span
+          className="toggle-password"
+          onClick={() => setShow(!show)}
+        >
+          {show ? "🙈" : "👁"}
+        </span>
+      </div>
+</div>
+
+        <button  type="submit">
+          Login
+        </button>
+      </form>
+
+      {/* 🔹 Move Sign Up outside form */}
+     <p className="signup-text">
+        Don't have an account?
+        <span
+          className="signup-link"
+          onClick={() => navigate("/register")}
+        >
+          Sign Up
+        </span>
+      </p>
+    </div>
+    </div>
+  );
+}
+
+export default Login;
