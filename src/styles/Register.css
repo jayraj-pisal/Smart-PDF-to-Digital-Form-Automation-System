@@ -92,3 +92,31 @@
 .switch-auth span:hover {
   text-decoration: underline;
 }
+
+/* Role Toggle */
+.role-toggle {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.role-toggle button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  background: #f1f1f1;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.role-toggle button:hover {
+  background: #e2e2e2;
+}
+
+.role-toggle button.active {
+  background-color: #667eea;
+  color: white;
+}
