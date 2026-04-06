@@ -1,17 +1,22 @@
-const router=require("express").Router();
-const db=require("../db");
-const bcrypt=require("bcrypt");
-const jwt=require("jsonwebtoken");
+const router = require("express").Router();
+const db = require("../db");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const ADMIN_CODE = "PICT123";
+
+/* ================= REGISTER ================= */
 
 router.post("/register", async (req, res) => {
   try {
-    const { email, password } = req.body;
+
+    const { email, password, role } = req.body;
 
     const hash = await bcrypt.hash(password, 10);
 
     await db.query(
       "INSERT INTO users(email,password,role) VALUES(?,?,?)",
-      [email, hash, "student"]
+      [email, hash, role]
     );
 
     res.json({ msg: "User registered successfully" });
@@ -26,9 +31,14 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ msg: "Registration error" });
   }
 });
+
+
+/* ================= LOGIN ================= */
+
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+
+    const { email, password, role, code } = req.body;
 
     const [rows] = await db.query(
       "SELECT * FROM users WHERE email=?",
@@ -41,9 +51,23 @@ router.post("/login", async (req, res) => {
 
     const user = rows[0];
 
+    // check password
     const valid = await bcrypt.compare(password, user.password);
+
     if (!valid) {
       return res.status(400).json({ msg: "Wrong password" });
+    }
+
+    // role mismatch
+    if (role !== user.role) {
+      return res.status(403).json({ msg: "Invalid role selected" });
+    }
+
+    /* 🔐 ADMIN SECURITY CHECK */
+    if (role === "Admin") {
+      if (code !== ADMIN_CODE) {
+        return res.status(403).json({ msg: "Invalid Admin Code" });
+      }
     }
 
     const token = jwt.sign(
@@ -52,12 +76,18 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token, role: user.role });
+    res.json({
+      token,
+      role: user.role,
+      email: user.email
+    });
 
   } catch (err) {
+
     console.log(err);
     res.status(500).json({ msg: "Login error" });
+
   }
 });
 
-module.exports=router;
+module.exports = router;

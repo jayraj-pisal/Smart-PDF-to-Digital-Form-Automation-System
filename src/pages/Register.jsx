@@ -3,13 +3,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 
+
 function Register() {
 
   const navigate = useNavigate();
 
-  const [role, setRole] = useState("student");   // 🔹 role state
+  const [role, setRole] = useState("Student");   // 🔹 role state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
   const [show, setShow] = useState(false);
 
   const handleRegister = async (e) => {
@@ -35,23 +37,23 @@ function Register() {
 
     <div className="auth-card">
 
-      <h2>{role === "admin" ? "Admin Sign Up" : "Student Sign Up"}</h2>
+      <h2>{role === "Admin" ? "Admin Sign Up" : "Student Sign Up"}</h2>
 
       {/* 🔹 Role Toggle */}
       <div className="role-toggle">
 
         <button
           type="button"
-          className={role === "student" ? "active" : ""}
-          onClick={() => setRole("student")}
+          className={role === "Student" ? "active" : ""}
+          onClick={() => setRole("Student")}
         >
           Student
         </button>
 
         <button
           type="button"
-          className={role === "admin" ? "active" : ""}
-          onClick={() => setRole("admin")}
+          className={role === "Admin" ? "active" : ""}
+          onClick={() => setRole("Admin")}
         >
           Admin
         </button>
@@ -93,6 +95,14 @@ function Register() {
 
           </div>
         </div>
+
+         <div className="form-group">
+          <label>{role} Code</label>
+         <input type="code"  
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+         />
+         </div>  
 
         <button className="auth-btn" type="submit">
           Sign Up as {role}

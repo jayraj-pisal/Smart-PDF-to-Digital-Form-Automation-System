@@ -7,10 +7,11 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const [role, setRole] = useState("student"); // 🔹 role state
+  const [role, setRole] = useState("Student"); // 🔹 role state
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ function Login() {
 
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
-        { email, password, role }   // 🔹 send role to backend
+        { email, password, role, code }   // 🔹 send role and code to backend
       );
 
       console.log("LOGIN RESPONSE:", res.data);
@@ -28,7 +29,7 @@ function Login() {
       localStorage.setItem("role", role);
 
       // 🔹 redirect based on role
-      if(role === "admin"){
+      if(role === "Admin"){
         navigate("/admin-dashboard");
       }else{
         navigate("/dashboard");
@@ -45,23 +46,23 @@ function Login() {
 
       <div className="auth-card">
 
-        <h2>{role === "admin" ? "Admin Login" : "Student Login"}</h2>
+        <h2>{role === "Admin" ? "Admin Login" : "Student Login"}</h2>
 
         {/* 🔹 Role Toggle */}
         <div className="role-toggle">
 
           <button
             type="button"
-            className={role === "student" ? "active" : ""}
-            onClick={() => setRole("student")}
+            className={role === "Student" ? "active" : ""}
+            onClick={() => setRole("Student")}
           >
             Student
           </button>
 
           <button
             type="button"
-            className={role === "admin" ? "active" : ""}
-            onClick={() => setRole("admin")}
+            className={role === "Admin" ? "active" : ""}
+            onClick={() => setRole("Admin")}
           >
             Admin
           </button>
@@ -105,6 +106,14 @@ function Login() {
             </div>
 
           </div>
+
+          <div className="form-group">
+          <label>{role} Code</label>
+         <input type="code"  
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+         />
+         </div> 
 
           <button type="submit">
             Login as {role}
