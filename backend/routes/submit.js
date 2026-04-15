@@ -38,14 +38,14 @@ router.post("/", async (req, res) => {
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
     const page = pdfDoc.getPages()[0];
-    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
     // write data on pdf (you can adjust positions)
-    page.drawText(`Name: ${data.name || ""}`, { x: 50, y: 700, size: 12, font });
-    page.drawText(`Email: ${data.email || ""}`, { x: 50, y: 680, size: 12, font });
-    page.drawText(`College: ${data.college || ""}`, { x: 50, y: 660, size: 12, font });
-    page.drawText(`Branch: ${data.branch || ""}`, { x: 50, y: 640, size: 12, font });
-    page.drawText(`Phone: ${data.phone || ""}`, { x: 50, y: 620, size: 12, font });
+    page.drawText(`${data.name || ""}`, { x: 280, y: 400, size: 12, font });
+    page.drawText(`${data.department || ""}`, { x: 280, y: 365, size: 12, font });
+    page.drawText(`${data.DivRoll || ""}`, { x: 280, y: 340, size: 12, font });
+    page.drawText(`${data.NameOfInternship || ""}`, { x: 280, y: 310, size: 12, font });
+    page.drawText(`${data.ExternalGuide || ""}`, { x: 280, y: 200, size: 12, font });
 
     const pdfBytes = await pdfDoc.save();
 

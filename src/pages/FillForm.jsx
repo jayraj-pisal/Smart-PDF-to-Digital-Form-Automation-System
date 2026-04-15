@@ -64,12 +64,11 @@ export default function FillForm() {
             // fields={form.fields}
             fields={[
             {"label":"Full Name","name":"name",   "type":"text"},
-            {"label":"Campus Address","name":"campusAddress","type":"text"},
-            {"label":"Home Address","name":"homeAddress","type":"text"},
-            {"label":"Email","name":"email","type":"email"},
-            {"label":"Phone","name":"phone","type":"text"},
-            {"label":"Internship Semester","name":"internshipSemester","type":"text"},
-            {"label":"Overall CGPA","name":"overallCGPA","type":"text"}
+            {"label":"Department","name":"department","type":"text"},
+            {"label":"Division and Roll no.","name":"DivRoll","type":"text"},
+            {"label":"Name of Internship offering industry/institution","name":"NameOfInternship","type":"text"},
+            {"label":"Industrial/institution contact person's name, designation and contact details","name":"ExternalGuide","type":"text"},
+            
             ]} 
             formData={formData}
             setFormData={setFormData}

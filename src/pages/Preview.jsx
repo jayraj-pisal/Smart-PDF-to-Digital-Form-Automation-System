@@ -39,13 +39,12 @@ const generatePDF = async () => {
   const page = pdfDoc.getPages()[0];
   const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
-  page.drawText(`${formData.name || ""}`, { x: 200, y: 650, size: 12, font });
-  page.drawText(`${formData.email || ""}`, { x: 200, y: 550, size: 12, font });
-  page.drawText(`${formData.phone || ""}`, { x: 500, y: 620, size: 12, font });
-  page.drawText(`${formData.campusAddress || ""}`, { x: 200, y: 620, size: 12, font });
-  page.drawText(`${formData.homeAddress || ""}`, { x: 200, y: 585, size: 12, font });
-  page.drawText(`${formData.internshipSemester || ""}`, { x: 450, y: 490, size: 12, font });
-  page.drawText(`${formData.overallCGPA || ""}`, { x: 350, y: 435, size: 12, font });
+  page.drawText(`${formData.name || ""}`, { x: 280, y: 400, size: 12, font });
+  page.drawText(`${formData.department || ""}`, { x: 280, y: 365, size: 12, font });
+  page.drawText(`${formData.DivRoll || ""}`, { x: 280, y: 340, size: 12, font });
+  page.drawText(`${formData.NameOfInternship || ""}`, { x: 280, y: 310, size: 12, font });
+  page.drawText(`${formData.ExternalGuide || ""}`, { x: 280, y: 200, size: 12, font });
+  
 
   const pdfBytes = await pdfDoc.save();
   const blob = new Blob([pdfBytes], { type: "application/pdf" });
