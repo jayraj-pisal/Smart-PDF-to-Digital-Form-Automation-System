@@ -1,28 +1,74 @@
-.container {
-  padding: 30px;
-  font-family: Arial, sans-serif;
+/* Main Container */
+
+.container{
+  min-height:100vh;
+  padding:40px;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg,#667eea,#764ba2);
 }
 
-.form-card {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Page Title */
+
+.container h2{
+  color:white;
+  margin-bottom:25px;
+  font-size:26px;
+  font-weight:600;
 }
 
-.form-card button {
-  background-color: #667eea;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+/* Form Card */
+
+.form-card{
+  background:rgba(255,255,255,0.95);
+  padding:18px 22px;
+  margin-bottom:18px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:0.25s ease;
 }
 
-.form-card button:hover {
-  background-color: #5a67d8;
+/* Hover effect */
+
+.form-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* File name */
+
+.form-card span{
+  font-size:16px;
+  font-weight:500;
+  color:#333;
+}
+
+/* Buttons */
+
+.form-card button{
+  background:#667eea;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  transition:0.25s;
+}
+
+/* Hover */
+
+.form-card button:hover{
+  background:#5a67d8;
+}
+
+/* Empty message */
+
+.no-forms{
+  color:white;
+  font-size:16px;
+  opacity:0.9;
 }

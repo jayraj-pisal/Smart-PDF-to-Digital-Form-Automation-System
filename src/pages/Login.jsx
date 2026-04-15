@@ -7,8 +7,9 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const [role, setRole] = useState("Student"); // 🔹 role state
+  const [role, setRole] = useState("Student");
   const [show, setShow] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
@@ -20,55 +21,52 @@ function Login() {
 
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
-        { email, password, role, code }   // 🔹 send role and code to backend
+        { email, password, role, code }
       );
 
       console.log("LOGIN RESPONSE:", res.data);
 
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", role);
+      localStorage.setItem("role", res.data.role);
 
-      // 🔹 redirect based on role
-      if(role === "Admin"){
-        navigate("/admin-dashboard");
+      if(res.data.role === "Admin"){
+        navigate("/AdminDashboard");
       }else{
         navigate("/dashboard");
       }
 
     } catch (err) {
-      alert("Login failed");
+      alert(err.response?.data?.msg || "Login failed");
     }
   };
 
   return (
-
     <div className="auth-container">
-
       <div className="auth-card">
 
         <h2>{role === "Admin" ? "Admin Login" : "Student Login"}</h2>
 
-        {/* 🔹 Role Toggle */}
-        <div className="role-toggle">
+       <div className="role-toggle">
 
-          <button
-            type="button"
-            className={role === "Student" ? "active" : ""}
-            onClick={() => setRole("Student")}
-          >
-            Student
-          </button>
+  <div className={`slider ${role === "Admin" ? "right" : ""}`}></div>
 
-          <button
-            type="button"
-            className={role === "Admin" ? "active" : ""}
-            onClick={() => setRole("Admin")}
-          >
-            Admin
-          </button>
+  <button
+    type="button"
+    className={role === "Student" ? "active" : ""}
+    onClick={() => setRole("Student")}
+  >
+    Student
+  </button>
 
-        </div>
+  <button
+    type="button"
+    className={role === "Admin" ? "active" : ""}
+    onClick={() => setRole("Admin")}
+  >
+    Admin
+  </button>
 
+</div>
         <form onSubmit={handleLogin}>
 
           <div>
@@ -78,22 +76,18 @@ function Login() {
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
               required
-              autoComplete="email"
             />
           </div>
 
           <div>
-
             <label>Password</label><br/>
 
             <div className="password-wrapper">
-
               <input
                 type={show ? "text" : "password"}
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 required
-                autoComplete="current-password"
               />
 
               <span
@@ -102,26 +96,29 @@ function Login() {
               >
                 {show ? "🙈" : "👁"}
               </span>
-
             </div>
-
           </div>
 
-          <div className="form-group">
-          <label>{role} Code</label>
-         <input type="code"  
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-         />
-         </div> 
+          {/* ADMIN CODE FIELD (only when admin selected) */}
+          {role === "Admin" && (
+            <div>
+              <label>Admin Code</label><br/>
+              <input
+                type="text"
+                value={code}
+                onChange={(e)=>setCode(e.target.value)}
+                placeholder="Enter Admin Code"
+                required
+              />
+            </div>
+          )}
 
           <button type="submit">
-            Login as {role}
+            Login
           </button>
 
         </form>
 
-        {/* Sign Up */}
         <p className="signup-text">
           Don't have an account?
           <span
@@ -133,9 +130,7 @@ function Login() {
         </p>
 
       </div>
-
     </div>
-
   );
 }
 

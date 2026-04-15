@@ -45,9 +45,9 @@
   position: relative;
 }
 
-.password-wrapper input {
+/* .password-wrapper input {
   padding-right: 40px;
-}
+} */
 
 .toggle-password {
   position: absolute;
