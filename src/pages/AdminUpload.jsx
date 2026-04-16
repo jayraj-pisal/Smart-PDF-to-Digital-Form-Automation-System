@@ -6,7 +6,7 @@ export default function AdminUpload() {
 
   const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("pdf", file);   // must be "pdf"
+    formData.append("pdf", file);   
 
     try {
       await axios.post("http://localhost:5000/api/forms/upload", formData);

@@ -5,15 +5,15 @@ const db = require("../db");
 const path = require("path");
 const fs = require("fs");
 
-// =============================
+
 // Storage Config
-// =============================
 
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: (req, file, cb) => {
 
-    const uniqueName = Date.now() + "-" + file.originalname;
+    //const uniqueName = Date.now() + "-" + file.originalname;
+    const uniqueName =  file.originalname;
     cb(null, uniqueName);
 
   }
