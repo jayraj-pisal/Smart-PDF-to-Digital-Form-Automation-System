@@ -187,7 +187,6 @@ function AdminDashboard() {
   <div className="submission-card" key={sub.id}>
 
     <p><b>Name:</b> {sub.data?.name || "N/A"}</p>
-    <p><b>Email:</b> {sub.data?.email || "N/A"}</p>
     <p><b>Form:</b> {sub.filename}</p>
 
     <a
