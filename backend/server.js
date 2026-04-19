@@ -1,5 +1,6 @@
 const express=require("express");
 const cors=require("cors");
+const path=require("path");
 
 const authRoutes=require("./routes/auth");
 const formRoutes=require("./routes/forms");
@@ -16,4 +17,11 @@ app.use("/api/auth",authRoutes);
 app.use("/api/forms",formRoutes);
 app.use("/api/submit",submitRoutes);
 
-app.listen(5000,()=>console.log("Server running on 5000"));
+const distPath=path.join(__dirname,"..","dist");
+app.use(express.static(distPath));
+app.get("*",(req,res)=>{
+  res.sendFile(path.join(distPath,"index.html"));
+});
+
+const PORT=process.env.PORT||3000;
+app.listen(PORT,()=>console.log(`Server running on ${PORT}`));
