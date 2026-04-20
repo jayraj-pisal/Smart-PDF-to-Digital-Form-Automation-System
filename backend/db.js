@@ -1,11 +1,10 @@
-const mysql = require("mysql2");
+// Example using mysql2/promise
+const mysql = require('mysql2/promise');
 
-const db = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "rutu@123",
-  database: process.env.DB_NAME || "pdf_form_app",
-  port: process.env.DB_PORT || 3306,
-});
-
-module.exports = db.promise();  
+const pool = mysql.createPool(process.env.MYSQL_URL || {
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT || 3306
+}); 
