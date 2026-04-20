@@ -17,11 +17,13 @@ app.use("/api/auth",authRoutes);
 app.use("/api/forms",formRoutes);
 app.use("/api/submit",submitRoutes);
 
-const distPath=path.join(__dirname,"..","dist");
+const distPath = path.join(__dirname, "..", "dist");
 app.use(express.static(distPath));
-app.get("*",(req,res)=>{
-  res.sendFile(path.join(distPath,"index.html"));
+
+// SPA fallback route
+app.use((req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
-const PORT=process.env.PORT||3000;
-app.listen(PORT,()=>console.log(`Server running on ${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
